@@ -1,11 +1,4 @@
 
-/*
-    Name: Akshay Mathew
-    filename: list.js
-    Course: INFT 2202
-    Date: January 10
-    Description: This is my general style sheet.  Styles that affect all pages should go here.
-*/   
 console.log('we are on the list page');
 
 /* do table stuff */
