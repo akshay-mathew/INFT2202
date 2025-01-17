@@ -1,4 +1,14 @@
 /*
+    Name: Akshay Mathew
+    filename: animal.service.mock.js
+    Course: INFT 2202
+    Date: January 17
+    Description: This is my general style sheet.  Styles that affect all pages should go here.
+*/
+
+
+
+/*
  *  Service constructor
  */
 function AnimalService() {
