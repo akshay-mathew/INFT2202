@@ -1,11 +1,7 @@
 <!--
-    Name: Akshay Mathew
-    filename: add.html
-    Course: INFT 2202
-    Date: January 10
-    Description: This is my general style sheet.  Styles that affect all pages should go here.
+Name: Jordy Francis
+Description: In class 3 add.html
 -->
-
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
@@ -31,32 +27,37 @@
         <div class="container">
           <h1>Add Animal</h1>
           <hr>
+          <div id="message-box" class="alert alert-danger d-none"></div>
           <form id="animal-form" method="POST">
             <div class="mb-2">
               <div class="mb-3">
                 <label for="name" class="form-label">Animal Name</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <input type="text" class="form-control" id="name" name="name" value="sydney">
                 <p class="text-danger d-none">currently hidden</p>
               </div>
 
               <div class="mb-3">
                 <label for="breed" class="form-label">Animal Breed</label>
-                <input type="text" class="form-control" id="breed" name="breed">
+                <input type="text" class="form-control" id="breed" name="breed" value="dog">
+                <p class="text-danger d-none">Breed is required</p>
               </div>
     
               <div class="mb-3">
                 <label for="legs" class="form-label">Number of Legs</label>
-                <input type="number" class="form-control" id="legs" name="legs">
+                <input type="number" class="form-control" id="legs" name="legs" value="4">
+                <p class="text-danger d-none">Leg must be positive</p>
               </div>
     
               <div class="mb-3">
                 <label for="eyes" class="form-label">Number of Eyes</label>
-                <input type="number" class="form-control" id="eyes" name="eyes">
+                <input type="number" class="form-control" id="eyes" name="eyes" value="2">
+                <p class="text-danger d-none">number of eyes should be positive</p>
               </div>
     
               <div class="mb-3">
                 <label for="sound" class="form-label">Sound This Animal Makes</label>
-                <input type="text" class="form-control" id="sound" name="sound">
+                <input type="text" class="form-control" id="sound" name="sound" value="woof">
+                <p class="text-danger d-none">Sound is required</p>
               </div>
   
               <div>
@@ -72,7 +73,7 @@
           <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
             <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
           </a>
-          <span class="mb-3 mb-md-0 text-body-secondary">© <span id="copyrightYear"></span> Akshay Mathew, Inc</span>
+          <span class="mb-3 mb-md-0 text-body-secondary">© <span id="copyrightYear"></span> Jordy Francis, Inc</span>
         </div>
     
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
@@ -81,6 +82,7 @@
           <li class="ms-3"><a class="text-body-secondary" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
         </ul>
       </div>
-    </footer>    
-  </body>
+    </footer>  
+    <script src="./app/create.js"></script>  
+  </body>
 </html>
