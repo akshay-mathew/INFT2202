@@ -1,6 +1,6 @@
 
 /*--
-    Name: Akshay Mathew
+    Name: Akshay Mathewjj
     filename: list.js
     Course: INFT 2202
     Date: January 17
