@@ -18,10 +18,10 @@ function AnimalService() {
         while(animals.length<300) {
             animals.push({
                 "name": `name ${index++}`,
-                "breed": "Milan",
+                "breed": "Grizzly Bear",
                 "legs": 4,
                 "eyes": 2,
-                "sound": "Boo"
+                "sound": "Moo"
               });
         }
         return animals;
