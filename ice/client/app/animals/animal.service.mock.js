@@ -1,14 +1,7 @@
-/*
-    Name: Akshay Mathew
-    filename: animal.service.js
-    Course: INFT 2202
-    Date: January 10
-    Description: This is my general style sheet.  Styles that affect all pages should go here.
-*/
 
-
-/*
+/*Name - Akshay Mathew
  *  Service constructor
+student id - 100925210
  */
 function AnimalService() {
     // if there is no entry for animals in local storage
