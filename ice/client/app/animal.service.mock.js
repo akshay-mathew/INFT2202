@@ -1,7 +1,7 @@
 /*
-*Jordy Francis
-*Student id - 100934437
- *  Service constructor
+* Name: Akshay Mathew
+    filename: app.js
+    Course: INFT 2202
  */
 function AnimalService() {
 
