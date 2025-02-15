@@ -1,6 +1,7 @@
 /*
-Name - jordy francis
-Student ID - 100934437
+ Name: Akshay Mathew
+    filename: app.js
+    Course: INFT 2202
 
 */
 
