@@ -1,4 +1,4 @@
-`<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,17 +6,52 @@
     <title>Web Shop - Home</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Custom Navbar Design */
+        .custom-navbar {
+            background: linear-gradient(135deg, #6ec6ff, #008cba);
+            padding: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-weight: 500;
+            padding: 10px 15px;
+            transition: 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .navbar-toggler {
+            border: none;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation Bar -->  
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #d6e9ff">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container">
             <a class="navbar-brand" href="index.html">Web Shop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="list.html">Shop</a></li>
                     <li class="nav-item"><a class="nav-link" href="create.html">Add Product</a></li>
@@ -27,8 +62,7 @@
         </div>
     </nav>
 
-
-    <div id="carouselExample" class="carousel slide">
+    <div id="carouselExample" class="carousel slide mt-4">
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img src="img/1254946.jpg" class="d-block w-100" alt="Everything is Object!">
