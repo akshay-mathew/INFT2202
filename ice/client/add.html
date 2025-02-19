@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>INFT 2202</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./css/style.css">
+    <script  src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script  src="./app/animals/create.js" type="module"></script>
+</head>
+<body class="d-flex flex-column">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 offset-3">
+                <div id="generalError" class="alert alert-danger d-none"></div>
+                <form novalidate id="formData" onsubmit="submitAnimalForm(event)">
+                    <h1 class="text-center">Add Your Animal</h1>
+                    <div class="form-group">
+                        <label for="breed">Breed</label>
+                        <input type="text" class="form-control" id="breed" placeholder="Breed" name="breed" required>
+                        <p class="text-danger Error d-none"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Name" name="name" required>
+                        <p class="text-danger Error d-none"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="eyes">Eyes</label>
+                        <input type="text" class="form-control" id="eyes" placeholder="Eyes" name="eyes" required>
+                        <p class="text-danger Error d-none"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="legs">Legs</label>
+                        <input class="form-control" type="text" id="legs" placeholder="Legs" name="legs" required>
+                        <p class="text-danger Error d-none"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="sound">Sound</label>
+                        <input class="form-control" type="text" id="sound" placeholder="Sound" name="sound" required>
+                        <p class="text-danger Error d-none"></p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <div id="done" class="d-none">
+                   <a href="list.html"></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
