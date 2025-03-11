@@ -1,5 +1,7 @@
+/*
+ *  Service constructor
+ */
 function AnimalService() {
-    console.log('animal service');
 
     // if there is no entry for animals in local storage
     if (!localStorage.getItem('animals')) {
@@ -12,10 +14,8 @@ function AnimalService() {
  *
  */
 AnimalService.prototype.getAnimals = function () {
-    
-
+    // this will always be set, because we did it in the constructor
     return JSON.parse(localStorage.getItem('animals'));
-
 }
 AnimalService.prototype.getAnimalPage = function ({ page = 1, perPage = 15 }) {
     return new Promise((resolve, reject) => {
@@ -56,7 +56,6 @@ AnimalService.prototype.saveAnimal = function (animals) {
                     reject('An animal with that name already exists!');
                 }
                 // if it doesn't, add it to the array
-                console.log('saving animal', animal);
                 _animals.push(animal);
                 // and save it in storage again
                 localStorage.setItem('animals', JSON.stringify(_animals));

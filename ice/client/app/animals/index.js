@@ -1,13 +1,10 @@
-import animalService from "../animal.service.mock.js";
+import animalService from "../animal.service.js";
 
 async function animal(name) {
     const form = document.createElement('form');
     let description = 'Add Animal';
     let animal = null;
     function createContent() {
-        if(description == 'No service'){
-            return '';
-        }
         const container = document.createElement('div');
         container.classList.add('mb-2');
         //create animal form content
@@ -154,6 +151,9 @@ async function animal(name) {
         description = 'Update Animal';
         try{
             let ret = await animalService.findAnimal(name);
+            if(ret.length == 0){
+                throw 'No record';
+            }
             animal = ret[0];
             form.addEventListener('submit', function (event) {
                 // prevent the default action from happening
