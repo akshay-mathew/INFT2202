@@ -5,7 +5,7 @@
 export default new AnimalService({
     host: 'https://inft2202-server.onrender.com/',
     //host: 'http://localhost:3091',
-    user: '100925209'
+    user: '100925210
 });
 
 /*
@@ -22,7 +22,7 @@ function AnimalService({ host, user }) {
 /*
  *
  */
-AnimalService.prototype.findAnimal = async function(name) {
+AnimalService.prototype.findAnimal = async function (name) {
     const url = new URL(`/api/animals/${name}`, this.host);
     const req = new Request(url, {
         headers: this.headers,
@@ -38,8 +38,7 @@ AnimalService.prototype.findAnimal = async function(name) {
 /*
  *
  */
-AnimalService.prototype.getAnimalPage = async function({ page = 1, perPage = 8 }) 
-{
+AnimalService.prototype.getAnimalPage = async function ({ page = 1, perPage = 8 }) {
     const params = new URLSearchParams({ page, perPage });
     const url = new URL(`/api/animals?${params.toString()}`, this.host);
     const req = new Request(url, {
@@ -57,8 +56,7 @@ AnimalService.prototype.getAnimalPage = async function({ page = 1, perPage = 8 }
 /*
  *
  */
-AnimalService.prototype.saveAnimal = async function(animals) 
-{
+AnimalService.prototype.saveAnimal = async function (animals) {
     const url = new URL(`/api/animals`, this.host);
     const req = new Request(url, {
         headers: this.headers,
@@ -76,8 +74,7 @@ AnimalService.prototype.saveAnimal = async function(animals)
 /*
  *
  */
-AnimalService.prototype.updateAnimal = async function(animal) 
-{
+AnimalService.prototype.updateAnimal = async function (animal) {
     const url = new URL(`/api/animals`, this.host);
     const req = new Request(url, {
         headers: this.headers,
@@ -95,7 +92,7 @@ AnimalService.prototype.updateAnimal = async function(animal)
 /*
  *
  */
-AnimalService.prototype.deleteAnimal = async function(name) {
+AnimalService.prototype.deleteAnimal = async function (name) {
     const url = new URL(`/api/animals/${name}`, this.host);
     const req = new Request(url, {
         headers: this.headers,
