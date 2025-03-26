@@ -1,5 +1,5 @@
-// src/client/app/products/create.js
-import ProductService from './product.mock.service.js'; // Changed to mock service
+// /client/app/products/create.js
+import ProductService from './product.service.mock.js'; // Changed to mock service
 import Product from './product.js';
 
 const params = new URLSearchParams(window.location.search);
