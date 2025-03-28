@@ -1,7 +1,7 @@
 // Update footer
 const footer = document.querySelector('footer span');
 const currentYear = new Date().getFullYear();
-footer.textContent = `Patrick Crawford - ${currentYear}`;
+footer.textContent = `Akshay Mathew - ${currentYear}`;
 
 // Get DOM elements
 const genreSelector = document.getElementById('genre-selector');
