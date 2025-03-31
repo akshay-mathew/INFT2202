@@ -1,3 +1,16 @@
 title: Your Site Title
 description: Your site description
 theme: jekyll-theme-minimal
+
+# Exclude directories and/or files from the conversion
+exclude:
+  - node_modules
+  - assignment1
+  - ice
+  - package.json
+  - package-lock.json
+  - .gitignore
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
