@@ -24,25 +24,27 @@ function listBuilder(app) {
                             </tr>
                         </thead>
                         <tbody>
-                            ${records.map(animal => `
-                                <tr>
-                                    <td>${animal.name}</td>
-                                    <td>${animal.breed}</td>
-                                    <td>${animal.legs}</td>
-                                    <td>${animal.eyes}</td>
-                                    <td>${animal.sound}</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-primary edit-btn" 
-                                                data-name="${animal.name}">
-                                            <i class="fa fa-edit"></i> Edit
-                                        </button>
-                                        <button class="btn btn-sm btn-danger delete-btn" 
-                                                data-name="${animal.name}">
-                                            <i class="fa fa-trash"></i> Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            `).join('')}
+                            ${records
+                                .filter(animal => animal && animal.name) // Filter out undefined or invalid entries
+                                .map(animal => `
+                                    <tr>
+                                        <td>${animal.name || ''}</td>
+                                        <td>${animal.breed || ''}</td>
+                                        <td>${animal.legs || ''}</td>
+                                        <td>${animal.eyes || ''}</td>
+                                        <td>${animal.sound || ''}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary edit-btn" 
+                                                    data-name="${animal.name}">
+                                                <i class="fa fa-edit"></i> Edit
+                                            </button>
+                                            <button class="btn btn-sm btn-danger delete-btn" 
+                                                    data-name="${animal.name}">
+                                                <i class="fa fa-trash"></i> Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
                         </tbody>
                     </table>
                 </div>
@@ -56,7 +58,12 @@ function listBuilder(app) {
             // Add event listeners for delete buttons
             element.querySelectorAll('.delete-btn').forEach(btn => {
                 btn.addEventListener('click', async (e) => {
-                    const name = e.target.dataset.name;
+                    const name = e.target.closest('[data-name]')?.dataset.name;
+                    if (!name) {
+                        console.error('Cannot delete: animal name is missing');
+                        return;
+                    }
+
                     if (confirm(`Are you sure you want to delete ${name}?`)) {
                         try {
                             await animalService.deleteAnimal(name);

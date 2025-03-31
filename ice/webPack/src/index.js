@@ -1,3 +1,4 @@
+import './css/style.css';
 import listBuilder from "./app/animals/list.js";
 import animalBuilder from "./app/animals/index.js";
 import twitterIcon from './img/twitter.png';

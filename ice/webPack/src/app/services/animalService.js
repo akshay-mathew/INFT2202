@@ -105,32 +105,32 @@ const animalService = {
     },
 
     async deleteAnimal(name) {
-        const url = `https://inft2202-server.onrender.com/api/animals/${name}`;
+        if (!name) {
+            throw new Error('Cannot delete: animal name is undefined');
+        }
+
+        const url = `https://inft2202-server.onrender.com/api/animals/${encodeURIComponent(name)}`;
         const headers = {
             'Content-Type': 'application/json',
-            'user': '100925210'  // Make sure this matches your student ID
+            'user': '100925210'
         };
 
-        try {
-            const response = await fetch(url, { 
-                method: 'DELETE',
-                headers 
-            });
+        const response = await fetch(url, { 
+            method: 'DELETE',
+            headers 
+        });
             
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Failed to delete animal');
-            }
-
-            return await response.json();
-        } catch (error) {
-            console.error('Delete error:', error);
-            throw new Error('Failed to delete animal');
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to delete animal');
         }
+
+        return await response.json();
     }
 };
 
 export default animalService;
+
 
 
 
