@@ -1,97 +1,110 @@
 
 import animalService from '../services/animalService.js';
 
-export default function listBuilder(app) {
-    const container = document.createElement('div');
-    
-    function createPagination(total) {
-        const pagination = document.createElement('nav');
-        pagination.innerHTML = `
-            <ul class="pagination justify-content-center">
-                <li class="page-item ${app.recordPage.page === 1 ? 'disabled' : ''}">
-                    <a class="page-link" href="#" data-page="${app.recordPage.page - 1}">Previous</a>
-                </li>
-                ${Array.from({ length: Math.ceil(total / app.recordPage.perPage) }, (_, i) => i + 1)
-                    .map(page => `
-                        <li class="page-item ${page === app.recordPage.page ? 'active' : ''}">
-                            <a class="page-link" href="#" data-page="${page}">${page}</a>
-                        </li>
-                    `).join('')}
-                <li class="page-item ${app.recordPage.page >= Math.ceil(total / app.recordPage.perPage) ? 'disabled' : ''}">
-                    <a class="page-link" href="#" data-page="${app.recordPage.page + 1}">Next</a>
-                </li>
-            </ul>
-        `;
-        
-        pagination.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (e.target.dataset.page) {
-                app.recordPage.page = parseInt(e.target.dataset.page);
-                loadAnimals();
-            }
-        });
-        
-        return pagination;
-    }
+function listBuilder(app) {
+    const element = document.createElement('div');
+    const { recordPage } = app;
 
-    async function loadAnimals() {
+    const render = async () => {
         try {
-            const animals = await animalService.getAnimals();
-            const start = (app.recordPage.page - 1) * app.recordPage.perPage;
-            const end = start + app.recordPage.perPage;
-            const paginatedAnimals = animals.slice(start, end);
-
-            container.innerHTML = `
-                <h1>Animal List</h1>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Breed</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${paginatedAnimals.map(animal => `
+            const { records, pagination } = await animalService.getAnimalPage(recordPage);
+            
+            element.innerHTML = `
+                <h2>Animal List</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
-                                <td>${animal.name}</td>
-                                <td>${animal.breed}</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm" data-action="edit" data-name="${animal.name}">Edit</button>
-                                    <button class="btn btn-danger btn-sm" data-action="delete" data-name="${animal.name}">Delete</button>
-                                </td>
+                                <th>Name</th>
+                                <th>Breed</th>
+                                <th>Legs</th>
+                                <th>Eyes</th>
+                                <th>Sound</th>
+                                <th>Actions</th>
                             </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            ${records.map(animal => `
+                                <tr>
+                                    <td>${animal.name}</td>
+                                    <td>${animal.breed}</td>
+                                    <td>${animal.legs}</td>
+                                    <td>${animal.eyes}</td>
+                                    <td>${animal.sound}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary edit-btn" 
+                                                data-name="${animal.name}">
+                                            <i class="fa fa-edit"></i> Edit
+                                        </button>
+                                        <button class="btn btn-sm btn-danger delete-btn" 
+                                                data-name="${animal.name}">
+                                            <i class="fa fa-trash"></i> Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <button class="btn btn-secondary" ${pagination.page <= 1 ? 'disabled' : ''} id="prevPage">Previous</button>
+                    <span class="mx-3">Page ${pagination.page} of ${pagination.pages}</span>
+                    <button class="btn btn-secondary" ${pagination.page >= pagination.pages ? 'disabled' : ''} id="nextPage">Next</button>
+                </div>
             `;
 
-            container.append(createPagination(animals.length));
-
-            // Setup event listeners for actions
-            container.querySelectorAll('[data-action]').forEach(button => {
-                button.addEventListener('click', async (e) => {
-                    const action = e.target.dataset.action;
+            // Add event listeners for delete buttons
+            element.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
                     const name = e.target.dataset.name;
-
-                    if (action === 'edit') {
-                        window.location.hash = 'edit';
-                        app.name = name;
-                    } else if (action === 'delete') {
-                        if (confirm('Are you sure you want to delete this animal?')) {
+                    if (confirm(`Are you sure you want to delete ${name}?`)) {
+                        try {
                             await animalService.deleteAnimal(name);
-                            loadAnimals();
+                            render(); // Refresh the list
+                        } catch (error) {
+                            const errorDiv = document.createElement('div');
+                            errorDiv.className = 'alert alert-danger mt-3';
+                            errorDiv.textContent = error.message;
+                            element.insertBefore(errorDiv, element.firstChild);
+                            
+                            setTimeout(() => errorDiv.remove(), 3000);
                         }
                     }
                 });
             });
+
+            // Add event listeners for edit buttons
+            element.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const name = e.target.closest('[data-name]').dataset.name;
+                    // Use history.pushState for client-side navigation
+                    window.history.pushState({}, '', `/animal?name=${name}`);
+                    // Trigger the router
+                    window.dispatchEvent(new PopStateEvent('popstate'));
+                });
+            });
+
+            element.querySelector('#prevPage')?.addEventListener('click', () => {
+                recordPage.page--;
+                render();
+            });
+
+            element.querySelector('#nextPage')?.addEventListener('click', () => {
+                recordPage.page++;
+                render();
+            });
+
         } catch (error) {
-            container.innerHTML = `<div class="alert alert-danger">Error loading animals: ${error.message}</div>`;
+            element.innerHTML = `<div class="alert alert-danger">Error loading animals: ${error.message}</div>`;
         }
-    }
+    };
 
-    // Initial load
-    loadAnimals();
+    render();
 
-    return { element: container };
+    return {
+        element
+    };
 }
+
+export default listBuilder;

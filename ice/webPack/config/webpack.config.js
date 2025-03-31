@@ -1,44 +1,50 @@
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-export default {
+module.exports = {
   devtool: 'source-map',
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, '../dist'),
     clean: true,
-    assetModuleFilename: 'assets/[name][ext]'
+    publicPath: '/',
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-      inject: 'body',
-    })
-  ],
   devServer: {
+    historyApiFallback: true,
+    hot: true,
+    port: 8080,
     static: {
       directory: path.join(__dirname, '../public'),
-    },
-    compress: true,
-    port: 9000,
-    open: true,
-    hot: true
+    }
   },
   module: {
     rules: [
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
-        type: 'asset/resource',
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 8192 // 8kb
+          }
+        },
         generator: {
-          filename: 'img/[name][ext]'
+          filename: 'images/[name][ext]'
+        }
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+      inject: 'body'
+    })
+  ]
 };

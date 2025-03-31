@@ -101,41 +101,40 @@ async function animal(name) {
     }
     // create a handler to deal with the submit event
     async function submit(action) {
-        // validate the form
         const valid = validate();
-        // do stuff if the form is valid
         if (valid) {
-            console.log('were good');
-
             const formData = new FormData(form);
             const animalObject = {};
             formData.forEach((value, key) => {
                 if (key === 'eyes' || key === 'legs') {
                     animalObject[key] = Number(value);
-                }
-                else {
-                    animalObject[key] = value;
+                } else {
+                    animalObject[key] = value.trim();
                 }
             });
 
-            const eleNameError = form.name.nextElementSibling
+            const eleNameError = form.name.nextElementSibling;
             try {
                 if (action == "new") {
-                    await animalService.saveAnimal([animalObject]);
+                    await animalService.saveAnimal(animalObject);
+                    // Add a small delay before redirect
+                    setTimeout(() => {
+                        window.location = './list.html';
+                    }, 500);
                 } else {
-                    await animalService.updateAnimal(animalObject)
+                    await animalService.updateAnimal(animalObject);
+                    setTimeout(() => {
+                        window.location = './list.html';
+                    }, 500);
                 }
-                eleNameError.classList.add('d-none');
-                form.reset();
-                window.location = './list.html';
             } catch (error) {
-                console.log(error);
+                console.error(error);
                 eleNameError.classList.remove('d-none');
-                eleNameError.textContent = "This animal already exists!";
+                eleNameError.textContent = error.message || "Failed to save animal";
+                return; // Don't redirect if there's an error
             }
-            // do nothing if it's not
         } else {
-            console.log('were not good');
+            console.log('Form validation failed');
         }
     }
 
