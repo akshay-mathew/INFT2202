@@ -15,24 +15,6 @@ const app = {
     animalBuilder
 };
 
-// Set copyright year
-document.getElementById('copyrightYear').textContent = new Date().getFullYear();
-
-// Add social media icons
-const twitterLink = document.querySelector('.me-3 a img');
-if (twitterLink) {
-    twitterLink.src = twitterIcon;
-    twitterLink.alt = 'Twitter';
-    twitterLink.width = 24;
-}
-
-const instagramLink = document.querySelector('.ms-3 a img');
-if (instagramLink) {
-    instagramLink.src = instagramIcon;
-    instagramLink.alt = 'Instagram';
-    instagramLink.width = 24;
-}
-
 // Router configuration
 const router = async () => {
     const main = document.querySelector('main');
