@@ -1,12 +1,13 @@
 {
-  "name": "webpack-animal-spa",
+  "name": "webpack-demo",
   "version": "1.0.0",
-  "type": "module",
+  "private": true,
   "scripts": {
-    "start": "webpack serve --config config/webpack.config.mjs --mode development",
-    "build": "webpack --config config/webpack.config.mjs --mode production",
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "homepage": "https://YOUR-USERNAME.github.io/INFT2202",
   "dependencies": {
     "copy-webpack-plugin": "^11.0.0",
     "html-webpack-plugin": "^5.6.0",
