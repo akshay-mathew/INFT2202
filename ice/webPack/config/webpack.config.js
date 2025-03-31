@@ -8,30 +8,24 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, '../dist'),
     clean: true,
-    publicPath: '/',
-  },
-  devServer: {
-    historyApiFallback: true,
-    hot: true,
-    port: 8080,
-    static: {
-      directory: path.join(__dirname, '../public'),
-    }
+    publicPath: '/INFT2202/',
   },
   module: {
     rules: [
+      // CSS loader
       {
-        test: /\.(png|jpe?g|gif|svg)$/i,
-        type: 'asset',
-        parser: {
-          dataUrlCondition: {
-            maxSize: 8192 // 8kb
-          }
-        },
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      // Image loader
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
         generator: {
           filename: 'images/[name][ext]'
         }
       },
+      // JavaScript loader
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -46,5 +40,13 @@ module.exports = {
       template: './public/index.html',
       inject: 'body'
     })
-  ]
+  ],
+  devServer: {
+    historyApiFallback: true,
+    hot: true,
+    port: 8080,
+    static: {
+      directory: path.join(__dirname, '../public'),
+    }
+  }
 };
