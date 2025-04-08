@@ -1,7 +1,6 @@
 import listBuilder from "./animals/list.js";
 import animalBuilder from "./animals/index.js";
-import coverBuilder from "./views/cover.ejs"
-import twitter from '../asset/twitter.svg';
+import coverTemplate from "./views/cover.ejs";
 
 function app(container) {
     const navItems = document.querySelectorAll('.nav-item a');
@@ -29,21 +28,16 @@ function app(container) {
             container.innerHTML = '';
             container.append(listBuilder(app).element);
         },
-        coverBuilder: function(app){
-            app.name = null;
-            navItems.forEach(item=>{
-                item.classList.remove('active');
-                item.removeAttribute('aria-current');
-            });
-            navItems[0].classList.add('active');
-            navItems[0].setAttribute('aria-current','page');            
-            container.innerHTML = coverBuilder({
+        coverBuilder: function(container) {
+            const data = {
                 imgLink: [
-                    require('./img/everything_is_object1.png').default,
-                    require('./img/everything_is_object2.png').default,
-                    require('./img/everything_is_object3.png').default
+                    '/INFT2202/public/images/everything_is_object.png',
+                    '/INFT2202/public/images/everything_is_object.png1',
+                    '/INFT2202/public/images/everything_is_object.png2'
                 ]
-            });
+            };
+            
+            container.innerHTML = coverTemplate({ data });
         }
     };
     const navigateTo = url => {
