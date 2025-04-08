@@ -37,10 +37,13 @@ function app(container) {
             });
             navItems[0].classList.add('active');
             navItems[0].setAttribute('aria-current','page');            
-            container.innerHTML = coverBuilder({imgLink:['./img/everything_is_object1.png',
-                './img/everything_is_object2.png',
-                './img/everything_is_object3.png'
-            ]});
+            container.innerHTML = coverBuilder({
+                imgLink: [
+                    require('./img/everything_is_object1.png').default,
+                    require('./img/everything_is_object2.png').default,
+                    require('./img/everything_is_object3.png').default
+                ]
+            });
         }
     };
     const navigateTo = url => {
