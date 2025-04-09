@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -8,7 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     clean: true,
-    publicPath: '/'
+    publicPath: '/INFT2202/'
   },
   module: {
     rules: [
@@ -17,20 +18,40 @@ module.exports = {
         use: ['style-loader', 'css-loader']
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource'
+        test: /\.ejs$/,
+        use: [
+          {
+            loader: 'html-loader'
+          },
+          {
+            loader: 'template-ejs-loader'
+          }
+        ]
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name][ext]'
+        }
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html'
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { 
+          from: 'src/app/img',
+          to: 'images'
+        }
+      ]
     })
   ],
-  devServer: {
-    static: './dist',
-    hot: true,
-    historyApiFallback: true
+  resolve: {
+    extensions: ['.js', '.ejs']
   }
 };
 

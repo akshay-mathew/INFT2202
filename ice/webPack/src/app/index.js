@@ -29,15 +29,15 @@ function app(container) {
             container.append(listBuilder(app).element);
         },
         coverBuilder: function(container) {
-            const data = {
+            const html = coverTemplate({
                 imgLink: [
-                    '/INFT2202/public/images/everything_is_object.png',
-                    '/INFT2202/public/images/everything_is_object.png1',
-                    '/INFT2202/public/images/everything_is_object.png2'
+                    '/INFT2202/images/everything_is_object1.png',
+                    '/INFT2202/images/everything_is_object2.png',
+                    '/INFT2202/images/everything_is_object3.png'
                 ]
-            };
+            });
             
-            container.innerHTML = coverTemplate({ data });
+            container.innerHTML = html;
         }
     };
     const navigateTo = url => {
